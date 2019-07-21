@@ -23,6 +23,7 @@ public class VendedorTest {
 	
 	private RepositorioProducto repositorioProducto;
 	private RepositorioGarantiaExtendida repositorioGarantia;
+	String nombreCliente = "Leo";
 
 	@Before
 	public void setUp() {
@@ -43,14 +44,14 @@ public class VendedorTest {
 
 	@Test
 	public void generarGarantiaTest() {
-
+		
 		// arrange
 		Producto producto = new ProductoTestDataBuilder().conNombre(COMPUTADOR_LENOVO).build();
 		repositorioProducto.agregar(producto);
 		Vendedor vendedor = new Vendedor(repositorioProducto, repositorioGarantia);
 
 		// act
-		vendedor.generarGarantia(producto.getCodigo());
+		vendedor.generarGarantia(producto.getCodigo(),nombreCliente);
 
 		// assert
 		Assert.assertTrue(vendedor.tieneGarantia(producto.getCodigo()));
@@ -69,10 +70,10 @@ public class VendedorTest {
 		Vendedor vendedor = new Vendedor(repositorioProducto, repositorioGarantia);
 
 		// act
-		vendedor.generarGarantia(producto.getCodigo());;
+		vendedor.generarGarantia(producto.getCodigo(), nombreCliente);
 		try {
 			
-			vendedor.generarGarantia(producto.getCodigo());
+			vendedor.generarGarantia(producto.getCodigo(),nombreCliente);
 			fail();
 			
 		} catch (GarantiaExtendidaException e) {

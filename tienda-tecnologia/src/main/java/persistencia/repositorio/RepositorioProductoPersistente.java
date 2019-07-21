@@ -40,7 +40,19 @@ public class RepositorioProductoPersistente implements RepositorioProducto, Repo
 	public void agregar(Producto producto) {
 		entityManager.persist(ProductoBuilder.convertirAEntity(producto));
 	}	
-
-	
+	/**
+	 * 
+	 * @param codigo Código del articulo a evaluar
+	 * @return true si el codigo posee 3 vocales de lo contrario false
+	 */
+	public boolean validarTresVocales(String codigo) {
+		int contador = 0;
+		for(int x=0;x<codigo.length();x++) {
+			  if ((codigo.charAt(x)=='a') || (codigo.charAt(x)=='e') || (codigo.charAt(x)=='i') || (codigo.charAt(x)=='o') || (codigo.charAt(x)=='u')){
+			    contador++;
+			  }
+			}
+		return (contador == 3);
+	};
 
 }

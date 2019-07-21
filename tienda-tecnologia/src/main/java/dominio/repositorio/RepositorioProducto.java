@@ -16,5 +16,11 @@ public interface RepositorioProducto {
 	 * @param producto
 	 */
 	void agregar(Producto producto);
+	
+	/**
+	 * Permite validar el código de un producto para saber si contiene 3 vocales.
+	 * @param codigo es el producto a validar
+	 */
+	boolean validarTresVocales(String codigo);
 
 }
