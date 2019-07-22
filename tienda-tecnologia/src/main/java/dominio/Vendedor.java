@@ -4,6 +4,7 @@ import dominio.repositorio.RepositorioProducto;
 import dominio.excepcion.GarantiaExtendidaException;
 import dominio.repositorio.RepositorioGarantiaExtendida;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -42,7 +43,7 @@ public class Vendedor {
         /**
          * Si el nombre del cliente no se ha ingresado, no se puede generar la garantía.
          */
-        if(nombreCliente == null) {
+        if(nombreCliente == null || nombreCliente.isEmpty()) {
         	throw new GarantiaExtendidaException(NOMBRE_CLIENTE_NO_INGRESADO);
         }
         
@@ -122,7 +123,7 @@ public class Vendedor {
     	
     	Calendar calendario = Calendar.getInstance();
     	calendario.setTime(fechaInicial);
-    	int dias =0;
+    	int dias =1;
     	
     	/**
     	 * si el día de la fecha es un Lunes no se tiene en cuenta en el cálculo de lo días
@@ -132,8 +133,9 @@ public class Vendedor {
     			dias++;
     		}
     		calendario.add(calendario.DAY_OF_YEAR, 1);
+
     	}
-    	
+
     	/**
     	 * si la fecha de finalización cae un domingo, se suman otros dos dias ya que los lunes no se cuentan.
     	 * @deprecated
@@ -143,6 +145,14 @@ public class Vendedor {
     	 */
     	if(calendario.get(Calendar.DAY_OF_WEEK) == 1) {
     		calendario.add(calendario.DAY_OF_YEAR, 2);
+    	}
+    	
+    	/**
+    	 * Se agreda la condicion por si algun día la garantía solo se puede dar un dia,entonces entraria solo una vez al while
+    	 * y al caer un lunes no lo controlariamos para que no lo cuente
+    	 */
+    	if(calendario.get(Calendar.DAY_OF_WEEK) == 2) {
+    		calendario.add(calendario.DAY_OF_YEAR, 1);
     	}
     	
     	return calendario.getTime();

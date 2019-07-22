@@ -48,7 +48,7 @@ public class RepositorioProductoPersistente implements RepositorioProducto, Repo
 	public boolean validarTresVocales(String codigo) {
 		int contador = 0;
 		for(int x=0;x<codigo.length();x++) {
-			  if ((codigo.charAt(x)=='a') || (codigo.charAt(x)=='e') || (codigo.charAt(x)=='i') || (codigo.charAt(x)=='o') || (codigo.charAt(x)=='u')){
+			  if ((codigo.toLowerCase().charAt(x)=='a') || (codigo.toLowerCase().charAt(x)=='e') || (codigo.toLowerCase().charAt(x)=='i') || (codigo.toLowerCase().charAt(x)=='o') || (codigo.toLowerCase().charAt(x)=='u')){
 			    contador++;
 			  }
 			}
